@@ -1,16 +1,38 @@
-# smart_github_explorer_flutter
+📱 Smart GitHub Explorer
+Smart GitHub Explorer is a simple, beautiful Flutter application that allows users to search GitHub profiles and view their non-forked repositories.
+It features light/dark mode switching, animated transitions, shimmer loading effects, and a smooth, responsive UI built with modern Flutter practices.
 
-A new Flutter project.
+✨ Features
+🔍 Search GitHub Users by username.
 
-## Getting Started
+📚 View Repositories of any user (only non-forked repos shown).
 
-This project is a starting point for a Flutter application.
+☀️🌙 Light/Dark Mode Toggle with floating button.
 
-A few resources to get you started if this is your first Flutter project:
+🎨 Animated Transitions and Shimmer Loading for better UX.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+🧑‍💻 Built using Flutter, HTTP, Shimmer, Url Launcher.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+⚡ Instant Theme Switching without app restart.
+
+🚀 Responsive design (works on phones and tablets).
+
+----------------------------------------------------
+
+📷 Screenshots
+
+Light Mode	Dark Mode
+(screenshot here)	(screenshot here)
+
+---------------------------------------------------
+
+🛠 Tech Stack
+Flutter 3.x
+
+Dart
+
+GitHub REST API v3
+
+Shimmer Package for loading animation
+
+Url Launcher Package for opening repository links
