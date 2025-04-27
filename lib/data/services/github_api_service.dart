@@ -4,7 +4,7 @@ import '../models/user_model.dart';
 import '../models/repository_model.dart';
 
 class GithubApiService {
-  static const _token = 'TOKEN';
+  static const _token = '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';
 
   static Future<List<User>> searchUsers(String query) async {
     final response = await http.get(

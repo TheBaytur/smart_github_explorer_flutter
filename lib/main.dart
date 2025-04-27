@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'core/theme_notifier.dart';
 import 'presentation/screens/user_search_screen.dart';
 
+
 void main() {
   runApp(MyApp());
 }

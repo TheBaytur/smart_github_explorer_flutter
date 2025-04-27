@@ -2,16 +2,40 @@ import 'package:flutter/material.dart';
 import '../../../core/theme_notifier.dart';
 import '../../../data/services/github_api_service.dart';
 import '../../../data/models/user_model.dart';
-import '../../../data/models/saved_users_screen.dart'; // <-- new screen for saved users
+import '../../data/models/saved_users_screen.dart'; // ✅ Correct import
+
+import 'package:url_launcher/url_launcher.dart';
+
 
 class UserSearchScreen extends StatefulWidget {
+  final List<User> savedUsers;
+
+  UserSearchScreen({this.savedUsers = const []});
+
   @override
   _UserSearchScreenState createState() => _UserSearchScreenState();
 }
 
 class _UserSearchScreenState extends State<UserSearchScreen> {
+  late List<User> savedUsers;
   List<User> users = [];
-  List<User> savedUsers = []; // ⭐ Added this
+
+  void launchProfile(String username) async {
+    final url = 'https://github.com/$username';
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    savedUsers = List<User>.from(widget.savedUsers);
+    searchUsers("flutter");
+  }
+
   bool isLoading = false;
 
   Future<void> searchUsers(String query) async {
@@ -33,12 +57,6 @@ class _UserSearchScreenState extends State<UserSearchScreen> {
         savedUsers.add(user);
       });
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    searchUsers("flutter");
   }
 
   @override
@@ -106,14 +124,34 @@ class _UserSearchScreenState extends State<UserSearchScreen> {
                     ),
                     onPressed: () => saveUser(user),
                   ),
-                  onTap: () {
-                    // Navigate to repo screen
-                  },
+                  onTap: ()  => launchProfile(user.username),
                 );
               },
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.pop(context); // ⬅️ go back
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.arrow_forward),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => SavedUsersScreen(savedUsers: savedUsers)),
+                ); // ➡️ go to Saved Users
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
