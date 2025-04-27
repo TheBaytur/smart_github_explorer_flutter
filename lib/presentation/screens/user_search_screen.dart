@@ -6,6 +6,8 @@ import '../../data/models/saved_users_screen.dart'; // ✅ Correct import
 
 import 'package:url_launcher/url_launcher.dart';
 
+import '/presentation/screens/profile_webview_screen.dart';
+
 
 class UserSearchScreen extends StatefulWidget {
   final List<User> savedUsers;
@@ -20,7 +22,7 @@ class _UserSearchScreenState extends State<UserSearchScreen> {
   late List<User> savedUsers;
   List<User> users = [];
 
-  void launchProfile(String username) async {
+  Future<void> launchProfile(String username) async {
     final url = 'https://github.com/$username';
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
@@ -124,7 +126,12 @@ class _UserSearchScreenState extends State<UserSearchScreen> {
                     ),
                     onPressed: () => saveUser(user),
                   ),
-                  onTap: ()  => launchProfile(user.username),
+                  onTap: () async {
+                    await launchProfile(user.username);
+                    if (mounted) {
+                      Navigator.pop(context); // 👈 go back after opening profile
+                    }
+                  },
                 );
               },
             ),
